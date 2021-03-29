@@ -1,69 +1,65 @@
-(deffacts numeros-iniciales (numeros 5 3 8 14 7)
+(deffacts numeros-iniciales (numeros 5 3 8 14 7 profundidad 10)
 (resultado 21))
 
 
 
 (defrule final
 (declare (salience 100))
+(numeros ?n profundidad ?p)
 (resultado ?r)
-(numeros ?n)
-
-(test (= ?n ?r))
+(test ( = ?r ?n))
 =>
 (halt))
 
 
 
 (defrule multiplicar
-?f <- (numeros $?rest1 ?x ?y )
-(test(not (and (= (length ?rest1) 0) (!= (* ?x ?y) 21))))
-
+?f <- (numeros ?x ?y $?rest1 profundidad ?p)
+(test(> ?p 0))
 
 =>
 
-(retract ?f)
-(assert (numeros $?rest1 (* ?x ?y)))
-(printout t "Lista: " numeros $?rest1 (* ?x ?y) crlf))
+
+(assert (numeros (* ?x ?y) $?rest1 profundidad (- ?p 1)))
+(printout t "Lista: " numeros (* ?x ?y) $?rest1 crlf))
 
 
 
 
 (defrule dividir
-?f <- (numeros $?rest1 ?x ?y )
-
+?f <- (numeros  ?x ?y $?rest1 profundidad ?p)
+(test(> ?p 0))
 (test (=(mod ?x ?y) 0))
-(test(not (and (= (length ?rest1) 0) (!= (div ?x ?y) 21))))
 
 =>
 
-(retract ?f)
-(assert (numeros $?rest1 (div ?x ?y)))
-(printout t "Lista: " numeros $?rest1 (div ?x ?y) crlf))
+
+(assert (numeros (div ?x ?y) $?rest1 profundidad (- ?p 1)))
+(printout t "Lista: " numeros (div ?x ?y) $?rest1 crlf))
 
 
 
 (defrule restar
-?f <- (numeros $?rest1 ?x ?y)
+?f <- (numeros  ?x ?y $?rest1 profundidad ?p)
+(test(> ?p 0))
 (test(>= ?x ?y))
-(test(not (and (= (length ?rest1) 0) (!= (- ?x ?y) 21))))
 =>
 
-(retract ?f)
-(assert (numeros $?rest1 (- ?x ?y)))
-(printout t "Lista: " numeros $?rest1 (- ?x ?y) crlf))
+
+(assert (numeros (- ?x ?y) $?rest1 profundidad (- ?p 1)))
+(printout t "Lista: " numeros (- ?x ?y) $?rest1 crlf))
 
 
 
 
 (defrule sumar
-?f <- (numeros $?rest1 ?x ?y)
-
-(test(not (and (= (length ?rest1) 0) (!= (+ ?x ?y) 21))))
+?f <- (numeros  ?x ?y $?rest1 profundidad ?p)
+(test(> ?p 0))
 =>
 
-(retract ?f)
-(assert (numeros $?rest1 (+ ?x ?y)))
-(printout t "Lista: " numeros $?rest1 (+ ?x ?y) crlf))
+
+(assert (numeros (+ ?x ?y) $?rest1 profundidad (- ?p 1)))
+(printout t "Lista: " numeros (+ ?x ?y) $?rest1 crlf))
 
 
 
