@@ -21,7 +21,7 @@
 
 
 (assert (numeros (* ?x ?y) $?rest1 profundidad (- ?p 1)))
-(printout t "Lista: " numeros (* ?x ?y) $?rest1 crlf))
+(printout t "Lista: " (* ?x ?y) $?rest1 crlf))
 
 
 
@@ -35,7 +35,7 @@
 
 
 (assert (numeros (div ?x ?y) $?rest1 profundidad (- ?p 1)))
-(printout t "Lista: " numeros (div ?x ?y) $?rest1 crlf))
+(printout t "Lista: " (div ?x ?y) $?rest1 crlf))
 
 
 
@@ -47,7 +47,7 @@
 
 
 (assert (numeros (- ?x ?y) $?rest1 profundidad (- ?p 1)))
-(printout t "Lista: " numeros (- ?x ?y) $?rest1 crlf))
+(printout t "Lista: " (- ?x ?y) $?rest1 crlf))
 
 
 
@@ -59,7 +59,7 @@
 
 
 (assert (numeros (+ ?x ?y) $?rest1 profundidad (- ?p 1)))
-(printout t "Lista: " numeros (+ ?x ?y) $?rest1 crlf))
+(printout t "Lista: " (+ ?x ?y) $?rest1 crlf))
 
 
 
